@@ -294,7 +294,7 @@ function AuthScreen({ onAuth }) {
     }
 
     try {
-      const endpoint = isLogin ? 'https://kaplan-mocha.vercel.app//api/auth/login' : 'https://kaplan-mocha.vercel.app//api/auth/register';
+      const endpoint = isLogin ? 'https://kaplan-mocha.vercel.app/api/auth/login' : 'https://kaplan-mocha.vercel.app//api/auth/register';
       const bodyData = isLogin ? { email, password } : { fullName, email, password };
 
       const response = await fetch(endpoint, {
