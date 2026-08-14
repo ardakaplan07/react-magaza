@@ -29,7 +29,7 @@ const AdminBarcodeAdd = () => {
     setMessage({ text: 'Ürün veritabanında aranıyor...', type: 'warning' });
 
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/barcode/lookup/${codeToSearch}`);
+      const { data } = await axios.get(`https://kaplan-mocha.vercel.app//api/barcode/lookup/${codeToSearch}`);
       
       if (data.success) {
         setProductData(prev => ({
@@ -112,7 +112,7 @@ const AdminBarcodeAdd = () => {
         isDealOfTheDay: false
       };
 
-      const response = await axios.post('http://localhost:5000/api/admin/add-product', newProduct);
+      const response = await axios.post('https://kaplan-mocha.vercel.app//api/admin/add-product', newProduct);
       
       if (response.status === 200 || response.status === 201) {
         alert("Ürün başarıyla Kaplan Store'a eklendi! 🚀");

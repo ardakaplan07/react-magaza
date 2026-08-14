@@ -10,7 +10,7 @@ const MobilePay = () => {
     try {
       // DİKKAT: Eğer bunu GERÇEK TELEFONDAN okutup deneyecekseniz,
       // "localhost" yazan yeri bilgisayarınızın yerel IP adresiyle değiştirmelisiniz (Örn: 192.168.1.50)
-      const response = await fetch(`http://localhost:5000/api/qr/pay/${sessionId}`, {
+      const response = await fetch(`https://kaplan-mocha.vercel.app//api/qr/pay/${sessionId}`, {
         method: 'POST'
       });
       

@@ -8,7 +8,7 @@ const QRPayment = ({ totalAmount, onSuccess }) => {
 
     // 1. Ekran ilk açıldığında Backend'den benzersiz Ödeme ID'si iste
     useEffect(() => {
-        fetch('http://localhost:5000/api/qr/create-session', {
+        fetch('https://kaplan-mocha.vercel.app//api/qr/create-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: totalAmount })
@@ -27,7 +27,7 @@ const QRPayment = ({ totalAmount, onSuccess }) => {
         if (!sessionId || status === 'paid') return;
 
         const interval = setInterval(() => {
-            fetch(`http://localhost:5000/api/qr/status/${sessionId}`)
+            fetch(`https://kaplan-mocha.vercel.app//api/qr/status/${sessionId}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'paid') {
@@ -48,7 +48,7 @@ const QRPayment = ({ totalAmount, onSuccess }) => {
 
     // TEST BUTONU FONKSİYONU: Telefondan okutmakla uğraşmadan direkt ödeme yapmak için
     const simulateMobilePayment = () => {
-        fetch(`http://localhost:5000/api/qr/pay/${sessionId}`, { method: 'POST' });
+        fetch(`https://kaplan-mocha.vercel.app//api/qr/pay/${sessionId}`, { method: 'POST' });
     };
 
     return (
