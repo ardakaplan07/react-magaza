@@ -64,7 +64,7 @@ const AppleGooglePayButton = ({ totalAmount, cart, user, onSuccess }) => {
       pr.on('paymentmethod', async (ev) => {
         try {
           // 1. Backend'den o güvenli "bileti" (client_secret) al
-          const response = await fetch('https://kaplan-mocha.vercel.app//api/create-payment-intent', {
+          const response = await fetch('https://kaplan-mocha.vercel.app/api/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: Math.round(totalAmount * 100) }),
@@ -102,7 +102,7 @@ const AppleGooglePayButton = ({ totalAmount, cart, user, onSuccess }) => {
               totalAmount: totalAmount
             };
 
-            const orderResponse = await fetch('https://kaplan-mocha.vercel.app//api/orders/create', {
+            const orderResponse = await fetch('https://kaplan-mocha.vercel.app/api/orders/create', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(orderData)
@@ -130,7 +130,7 @@ const AppleGooglePayButton = ({ totalAmount, cart, user, onSuccess }) => {
 
     try {
       // 1. Backend'den ödeme yetkisini (Intent) al
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/create-payment-intent', {
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: Math.round(totalAmount * 100) }),
@@ -168,7 +168,7 @@ const AppleGooglePayButton = ({ totalAmount, cart, user, onSuccess }) => {
           totalAmount: totalAmount
         };
 
-        const orderResponse = await fetch('https://kaplan-mocha.vercel.app//api/orders/create', {
+        const orderResponse = await fetch('https://kaplan-mocha.vercel.app/api/orders/create', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderData)
@@ -294,7 +294,7 @@ function AuthScreen({ onAuth }) {
     }
 
     try {
-      const endpoint = isLogin ? 'https://kaplan-mocha.vercel.app/api/auth/login' : 'https://kaplan-mocha.vercel.app//api/auth/register';
+      const endpoint = isLogin ? 'https://kaplan-mocha.vercel.app/api/auth/login' : 'https://kaplan-mocha.vercel.app/api/auth/register';
       const bodyData = isLogin ? { email, password } : { fullName, email, password };
 
       const response = await fetch(endpoint, {
@@ -401,28 +401,28 @@ function AdminDashboard({ onLogout, user }) {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/admin/stats'); 
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/admin/stats'); 
       if (response.ok) setStats(await response.json());
     } catch (error) { console.error("İstatistikler çekilemedi:", error); }
   };
 
   const fetchAdminProducts = async () => {
     try {
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/products/all');
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/products/all');
       if (response.ok) setAdminProducts(await response.json());
     } catch (error) { console.error("Ürünler çekilemedi:", error); }
   };
 
   const fetchAdminUsers = async () => {
     try {
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/admin/users');
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/admin/users');
       if (response.ok) setAdminUsers(await response.json());
     } catch (error) { console.error("Kullanıcılar çekilemedi:", error); }
   };
 
   const fetchAdminOrders = async () => {
     try {
-        const response = await fetch('https://kaplan-mocha.vercel.app//api/admin/orders');
+        const response = await fetch('https://kaplan-mocha.vercel.app/api/admin/orders');
         if(response.ok) setAdminOrders(await response.json());
     } catch (error) { console.error("Siparişler çekilemedi:", error); }
   };
@@ -442,7 +442,7 @@ function AdminDashboard({ onLogout, user }) {
   const handleAddProduct = async () => {
     if (!productForm.title || !productForm.category || !productForm.price) return alert("Ad, kategori ve fiyat zorunlu!");
     try {
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/admin/add-product', {
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/admin/add-product', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(productForm),
       });
       if (response.ok) {
@@ -458,7 +458,7 @@ function AdminDashboard({ onLogout, user }) {
     try {
       const parsedData = JSON.parse(bulkJson);
       if (!Array.isArray(parsedData)) return alert("Geçerli bir liste formatında değil.");
-      const response = await fetch('https://kaplan-mocha.vercel.app//api/admin/bulk-add-products', {
+      const response = await fetch('https://kaplan-mocha.vercel.app/api/admin/bulk-add-products', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ products: parsedData })
       });
       if (response.ok) {
@@ -471,7 +471,7 @@ function AdminDashboard({ onLogout, user }) {
   const handleDeleteProduct = async (productId) => {
     if (!window.confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
     try {
-      const response = await fetch(`https://kaplan-mocha.vercel.app//api/admin/delete-product/${productId}`, { method: 'DELETE' });
+      const response = await fetch(`https://kaplan-mocha.vercel.app/api/admin/delete-product/${productId}`, { method: 'DELETE' });
       if (response.ok) { fetchAdminProducts(); fetchStats(); }
     } catch (error) { alert("Sunucuya ulaşılamadı."); }
   };
@@ -480,7 +480,7 @@ function AdminDashboard({ onLogout, user }) {
     const discountVal = discountInputs[productId];
     if (discountVal === undefined || discountVal === '') return alert("İndirim oranı girin!");
     try {
-      const response = await fetch(`https://kaplan-mocha.vercel.app//api/admin/update-discount/${productId}`, {
+      const response = await fetch(`https://kaplan-mocha.vercel.app/api/admin/update-discount/${productId}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ discountPercentage: discountVal })
       });
       if (response.ok) { fetchAdminProducts(); setDiscountInputs({ ...discountInputs, [productId]: '' }); }
@@ -489,7 +489,7 @@ function AdminDashboard({ onLogout, user }) {
 
   const handleToggleProductFlag = async (productId, flagName, currentValue) => {
     try {
-      const response = await fetch(`https://kaplan-mocha.vercel.app//api/admin/update-product-flags/${productId}`, {
+      const response = await fetch(`https://kaplan-mocha.vercel.app/api/admin/update-product-flags/${productId}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ flagName, value: !currentValue })
       });
       if (response.ok) fetchAdminProducts(); 
@@ -500,7 +500,7 @@ function AdminDashboard({ onLogout, user }) {
     const newRole = currentRole === 'admin' ? 'user' : 'admin';
     if (!window.confirm(`Kullanıcıyı ${newRole.toUpperCase()} yapmak istediğinize emin misiniz?`)) return;
     try {
-      const response = await fetch(`https://kaplan-mocha.vercel.app//api/admin/update-role/${userId}`, {
+      const response = await fetch(`https://kaplan-mocha.vercel.app/api/admin/update-role/${userId}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role: newRole })
       });
       if (response.ok) fetchAdminUsers(); 
@@ -524,7 +524,7 @@ function AdminDashboard({ onLogout, user }) {
   const saveCategory = async (productId) => {
     const { category, subCategory } = editingCategories[productId];
     try {
-      const response = await fetch(`https://kaplan-mocha.vercel.app//api/admin/update-category/${productId}`, {
+      const response = await fetch(`https://kaplan-mocha.vercel.app/api/admin/update-category/${productId}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ category, subCategory })
       });
       if (response.ok) {
@@ -934,7 +934,7 @@ function StoreFront({ onLogout, user }) {
   useEffect(() => {
     const fetchRealProducts = async () => {
       try {
-        const response = await fetch('https://kaplan-mocha.vercel.app//api/products/all');
+        const response = await fetch('https://kaplan-mocha.vercel.app/api/products/all');
         if (response.ok) {
           const data = await response.json();
           const adaptedProducts = data.map(p => {
@@ -993,7 +993,7 @@ function StoreFront({ onLogout, user }) {
     setOtpCode(''); 
 
     try {
-        await fetch('https://kaplan-mocha.vercel.app//api/payment/send-sms', {
+        await fetch('https://kaplan-mocha.vercel.app/api/payment/send-sms', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -1014,7 +1014,7 @@ function StoreFront({ onLogout, user }) {
     setPaymentLoading(true);
 
     try {
-        const verifyResponse = await fetch('https://kaplan-mocha.vercel.app//api/payment/verify-sms', {
+        const verifyResponse = await fetch('https://kaplan-mocha.vercel.app/api/payment/verify-sms', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phone: customerDetails.phone, otpCode: otpCode })
@@ -1039,7 +1039,7 @@ function StoreFront({ onLogout, user }) {
             totalAmount: totalFinalPrice
         };
 
-        const orderResponse = await fetch('https://kaplan-mocha.vercel.app//api/orders/create', {
+        const orderResponse = await fetch('https://kaplan-mocha.vercel.app/api/orders/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderData)
@@ -1082,7 +1082,7 @@ function StoreFront({ onLogout, user }) {
     if (!userId) return alert("Siparişlerinizi görmek için giriş yapmış olmalısınız.");
     
     try {
-        const res = await fetch(`https://kaplan-mocha.vercel.app//api/orders/my-orders/${userId}`);
+        const res = await fetch(`https://kaplan-mocha.vercel.app/api/orders/my-orders/${userId}`);
         if (res.ok) {
             const data = await res.json();
             setMyOrders(data);
