@@ -1256,7 +1256,7 @@ function StoreFront({ onLogout, user }) {
                                     totalAmount: totalFinalPrice
                                   };
                                   try {
-                                    const orderResponse = await fetch('https://kaplan-mocha.vercel.app//api/orders/create', {
+                                    const orderResponse = await fetch('https://kaplan-mocha.vercel.app/api/orders/create', {
                                       method: 'POST',
                                       headers: { 'Content-Type': 'application/json' },
                                       body: JSON.stringify(orderData)
